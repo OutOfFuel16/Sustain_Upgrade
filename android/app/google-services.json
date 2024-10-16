@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "382403170630",
+    "project_id": "carbon-campus",
+    "storage_bucket": "carbon-campus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382403170630:android:d1e4dea7c9dbb96ef39547",
+        "android_client_info": {
+          "package_name": "com.example.campus_carbon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjxX8Gqd18_wgX-I6d7zRtitSO5IvrcmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

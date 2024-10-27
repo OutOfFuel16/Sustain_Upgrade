@@ -3,6 +3,7 @@ import 'package:campus_carbon/decorators/bigbutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:campus_carbon/pages/map.dart';
 import 'package:campus_carbon/pages/add_data_page.dart';
+import 'package:campus_carbon/pages/aqi_page.dart'; // Import the AQI page if you have one
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -31,31 +32,17 @@ class _CollegePageState extends State<CollegePage> {
           backgroundColor: Colors.blueGrey[900],
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blueGrey[300],
-
             shape: const CircleBorder(),
-            onPressed: (){
+            onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                      const ChatterPage()));
+                      builder: (context) => const ChatterPage()));
             },
             child: Lottie.asset('lib/assets/bot.json'),
           ),
           body: CustomScrollView(
             slivers: [
-              // SliverAppBar(
-              //   //floating: true,
-              //   backgroundColor: Colors.transparent,
-              //   actions: [
-              //     IconButton(
-              //         onPressed: signOut,
-              //         icon: const Icon(
-              //           Icons.logout,
-              //           color: Colors.white70,
-              //         )),
-              //   ],
-              // ),
               SliverList(
                   delegate: SliverChildListDelegate([
                 SingleChildScrollView(
@@ -68,12 +55,11 @@ class _CollegePageState extends State<CollegePage> {
                           height: MediaQuery.sizeOf(context).height * 0.23,
                           width: MediaQuery.sizeOf(context).width,
                           fit: BoxFit.cover,
-      
                         ),
                       ),
                       Container(
                         constraints: BoxConstraints(
-                          minHeight: height/1.2,
+                          minHeight: height / 1.2,
                         ),
                         decoration: BoxDecoration(
                             color: Colors.grey[300],
@@ -85,24 +71,21 @@ class _CollegePageState extends State<CollegePage> {
                             const SizedBox(
                               height: 10,
                             ),
-      
                             Container(
-                              //color: Colors.red,
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(15),
                                 child: Text(
                                   "View and add info about IIT Mandi campus.",
                                   style: GoogleFonts.quicksand(
-                                      textStyle: const TextStyle(fontSize: 18,
+                                      textStyle: const TextStyle(
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w500)),
                                 )),
                             const SizedBox(
                               height: 40,
                             ),
-      
                             MyBigButton(
-                                //imagePath: "lib/assets/images/map.png",
-                              animationPath:"lib/assets/map2.json" ,
+                                animationPath: "lib/assets/map2.json",
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.cyan[800],
                                 onTap: () {
@@ -117,12 +100,27 @@ class _CollegePageState extends State<CollegePage> {
                               height: 20,
                             ),
                             MyBigButton(
-                                //imagePath: "lib/assets/images/adddata.png",
                                 animationPath: "lib/assets/add.json",
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.green[700],
                                 onTap: () => _addDataPage(user, context),
                                 strValue: "Add Data"),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            // New "Air Around Me" Button
+                            MyBigButton(
+                                animationPath: "lib/assets/aqi.json", // Path to animation
+                                startColor: Colors.blueGrey[900],
+                                endColor: Colors.orange[700],
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AQIPage())); // Replace with your AQI page
+                                },
+                                strValue: "Air Around Me"),
                             const SizedBox(
                               height: 200,
                             ),

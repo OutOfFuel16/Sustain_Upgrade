@@ -12,8 +12,6 @@ class MyTextField extends StatelessWidget {
     this.obscureText = false,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,7 +99,11 @@ class _MyDropDownState extends State<MyDropDown> {
                 index,
                 DropdownMenuItem<int>(
                   value: index,
-                  child: Center(child: Text(value, style: TextStyle(color: Colors.grey[700]),)),
+                  child: Center(
+                      child: Text(
+                    value,
+                    style: TextStyle(color: Colors.grey[700]),
+                  )),
                 ),
               ),
             )
@@ -137,10 +139,7 @@ class _MyDateFieldState extends State<MyDateField> {
         controller: widget.controller,
         decoration: InputDecoration(
             labelText: widget.valueText,
-            labelStyle: TextStyle(
-                color: Colors.grey[700],
-                fontSize: 18
-            ),
+            labelStyle: TextStyle(color: Colors.grey[700], fontSize: 18),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
@@ -161,10 +160,8 @@ class _MyDateFieldState extends State<MyDateField> {
         firstDate: DateTime(2000),
         lastDate: DateTime(2040));
 
-    if (picked != null) {
-      setState(() {
-        widget.controller.text = picked.toString().split(" ")[0];
-      });
-    }
+    setState(() {
+      widget.controller.text = picked.toString().split(" ")[0];
+    });
   }
 }

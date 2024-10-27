@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:campus_carbon/pages/adv_calculator.dart';
 import 'package:campus_carbon/pages/user_data_display.dart';
 import 'package:campus_carbon/pages/basic_calculator.dart';
+import 'package:campus_carbon/pages/electricity_page.dart';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -81,14 +83,10 @@ class _TrackPageState extends State<TrackPage> {
           backgroundColor: Colors.teal[900],
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blueGrey[300],
-
             shape: CircleBorder(),
-            onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const ChatterPage()));
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatterPage()));
             },
             child: Lottie.asset('lib/assets/bot.json'),
           ),
@@ -155,7 +153,7 @@ class _TrackPageState extends State<TrackPage> {
 
                       Container(
                         constraints: BoxConstraints(
-                          minHeight: height/1.2,
+                          minHeight: height / 1.2,
                         ),
                         decoration: BoxDecoration(
                             color: Colors.grey[300],
@@ -186,14 +184,16 @@ class _TrackPageState extends State<TrackPage> {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     String data = snapshot.data.toString();
-                                    if(data == '{"data":null}'){
+                                    if (data == '{"data":null}') {
                                       return Padding(
                                         padding: const EdgeInsets.all(20.0),
-                                        child: Text("-Start Tracking-",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.green[900],
-                                        ),),
+                                        child: Text(
+                                          "-Start Tracking-",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.green[900],
+                                          ),
+                                        ),
                                       );
                                     }
                                     final Map<String, dynamic> parsedJson =
@@ -203,19 +203,16 @@ class _TrackPageState extends State<TrackPage> {
                                     final latestCarbonData =
                                         findLatest(carbonData);
                                     final totalEmission = (latestCarbonData[
-                                    'power'] +
-                                        latestCarbonData[
-                                        'vehicle'] +
-                                        latestCarbonData[
-                                        'publicTransport'] +
-                                        latestCarbonData[
-                                        'flight'] +
-                                        latestCarbonData[
-                                        'food'] +
-                                        latestCarbonData[
-                                        'secondary']);
+                                            'power'] +
+                                        latestCarbonData['vehicle'] +
+                                        latestCarbonData['publicTransport'] +
+                                        latestCarbonData['flight'] +
+                                        latestCarbonData['food'] +
+                                        latestCarbonData['secondary']);
 
-                                    return HomePageData(latestCarbonData: latestCarbonData, totalEmission: totalEmission);
+                                    return HomePageData(
+                                        latestCarbonData: latestCarbonData,
+                                        totalEmission: totalEmission);
                                   } else {
                                     return Center(
                                       child: Lottie.asset(
@@ -246,7 +243,8 @@ class _TrackPageState extends State<TrackPage> {
                             ),
                             MyBigButton(
                                 //imagePath: 'lib/assets/images/basiccalculator.png',
-                                animationPath: 'lib/assets/basiccalculator.json',
+                                animationPath:
+                                    'lib/assets/basiccalculator.json',
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.cyan[800],
                                 onTap: () {
@@ -276,6 +274,23 @@ class _TrackPageState extends State<TrackPage> {
                             const SizedBox(
                               height: 100,
                             ),
+                            MyBigButton(
+                                // You can customize the animation or image here
+                                // animationPath:
+                                //     'lib/assets/electricity.json', // Use a new animation file for Electricity if you have one
+                                startColor: Colors.blueGrey[900],
+                                endColor: Colors.lightGreen[800],
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ElectricityPage())); // Replace with your Electricity page widget
+                                },
+                                strValue: "Electricity"),
+                            const SizedBox(
+                              height: 100,
+                            ),
                           ],
                         ),
                       )
@@ -288,4 +303,3 @@ class _TrackPageState extends State<TrackPage> {
     );
   }
 }
-

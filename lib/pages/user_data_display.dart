@@ -4,7 +4,6 @@ import "package:http/http.dart" as http;
 import 'dart:convert';
 import 'package:campus_carbon/keys/urls.dart';
 import 'package:lottie/lottie.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class CarbonData {
   final String id;

@@ -272,7 +272,7 @@ class _TrackPageState extends State<TrackPage> {
                                 },
                                 strValue: "Get Previous Data"),
                             const SizedBox(
-                              height: 100,
+                              height: 20,
                             ),
                             MyBigButton(
                                 // You can customize the animation or image here
@@ -289,7 +289,7 @@ class _TrackPageState extends State<TrackPage> {
                                 },
                                 strValue: "Electricity"),
                             const SizedBox(
-                              height: 100,
+                              height: 20,
                             ),
                           ],
                         ),

@@ -1,9 +1,7 @@
-// lib/pages/electricity_page.dart
-
 import 'package:flutter/material.dart';
-import 'dart:convert'; // For decoding JSON responses
-import 'package:http/http.dart' as http; // For making HTTP requests
-import 'switch_detail_page.dart'; // Import your SwitchDetailPage
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'switch_detail_page.dart'; // Import the SwitchDetailPage
 
 class ElectricityPage extends StatefulWidget {
   const ElectricityPage({Key? key}) : super(key: key);
@@ -19,10 +17,10 @@ class _ElectricityPageState extends State<ElectricityPage> {
   bool switch3Status = false;
   bool switch4Status = false;
 
-  String switch1UsageTime = "Loading...";
-  String switch2UsageTime = "Loading...";
-  String switch3UsageTime = "Loading...";
-  String switch4UsageTime = "Loading...";
+  String switch1UsageTime = "Off";
+  String switch2UsageTime = "Off";
+  String switch3UsageTime = "Off";
+  String switch4UsageTime = "Off";
 
   // Function to fetch switch status and usage time from server
   Future<void> fetchSwitchStatus() async {
@@ -38,18 +36,17 @@ class _ElectricityPageState extends State<ElectricityPage> {
           await http.get(Uri.parse("YOUR_SERVER_API_URL/switch4"));
 
       setState(() {
-        // Assuming API response is JSON like: {"status": "on", "usageTime": "2 hours"}
         switch1Status = json.decode(response1.body)['status'] == 'on';
-        switch1UsageTime = json.decode(response1.body)['usageTime'];
+        switch1UsageTime = switch1Status ? "On" : "Off";
 
         switch2Status = json.decode(response2.body)['status'] == 'on';
-        switch2UsageTime = json.decode(response2.body)['usageTime'];
+        switch2UsageTime = switch2Status ? "On" : "Off";
 
         switch3Status = json.decode(response3.body)['status'] == 'on';
-        switch3UsageTime = json.decode(response3.body)['usageTime'];
+        switch3UsageTime = switch3Status ? "On" : "Off";
 
         switch4Status = json.decode(response4.body)['status'] == 'on';
-        switch4UsageTime = json.decode(response4.body)['usageTime'];
+        switch4UsageTime = switch4Status ? "On" : "Off";
       });
     } catch (error) {
       print("Error fetching switch status: $error");
@@ -62,31 +59,71 @@ class _ElectricityPageState extends State<ElectricityPage> {
     fetchSwitchStatus();
   }
 
-  // Function to create a switch button
+  // Function to create a switch button with a slider
   Widget buildSwitchButton(String switchName, bool status, String usageTime) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor:
-            status ? Colors.green : const Color.fromARGB(255, 196, 65, 56),
-        minimumSize: Size(double.infinity, 60),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      onPressed: () {
+    return GestureDetector(
+      // Wrap with GestureDetector
+      onTap: () {
+        // Navigate to the SwitchDetailPage when the switch button is tapped
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SwitchDetailPage(
               switchName: switchName,
-              usageTime: usageTime,
+              usageTime: status ? "On" : "Off", // Pass updated usage time
             ),
           ),
         );
       },
-      child: Text(
-        switchName,
-        style: TextStyle(fontSize: 20, color: Colors.white),
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.grey[200], // Neutral background color
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              switchName,
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+            Row(
+              children: [
+                Text(
+                  usageTime,
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                ),
+                SizedBox(width: 10),
+                Switch(
+                  value: status,
+                  onChanged: (value) {
+                    setState(() {
+                      // Update switch status
+                      if (switchName == "Switch 1") {
+                        switch1Status = value;
+                        switch1UsageTime = switch1Status ? "On" : "Off";
+                      } else if (switchName == "Switch 2") {
+                        switch2Status = value;
+                        switch2UsageTime = switch2Status ? "On" : "Off";
+                      } else if (switchName == "Switch 3") {
+                        switch3Status = value;
+                        switch3UsageTime = switch3Status ? "On" : "Off";
+                      } else if (switchName == "Switch 4") {
+                        switch4Status = value;
+                        switch4UsageTime = switch4Status ? "On" : "Off";
+                      }
+                    });
+                  },
+                  activeColor: Colors.green,
+                  inactiveThumbColor: Colors.grey,
+                  inactiveTrackColor: Colors.grey[300],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -102,15 +139,10 @@ class _ElectricityPageState extends State<ElectricityPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            SizedBox(height: 30),
             buildSwitchButton("Switch 1", switch1Status, switch1UsageTime),
-            SizedBox(height: 30),
             buildSwitchButton("Switch 2", switch2Status, switch2UsageTime),
-            SizedBox(height: 30),
             buildSwitchButton("Switch 3", switch3Status, switch3UsageTime),
-            SizedBox(height: 30),
             buildSwitchButton("Switch 4", switch4Status, switch4UsageTime),
-            SizedBox(height: 30)
           ],
         ),
       ),

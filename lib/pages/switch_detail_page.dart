@@ -1,5 +1,3 @@
-// lib/pages/switch_detail_page.dart
-
 import 'package:flutter/material.dart';
 
 class SwitchDetailPage extends StatelessWidget {
@@ -15,24 +13,14 @@ class SwitchDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(switchName),
-        backgroundColor: Colors.teal[700],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Detailed usage information for $switchName:",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            Text(
-              "Usage Time: $usageTime",
-              style: TextStyle(fontSize: 18, color: Colors.grey[700]),
-              textAlign: TextAlign.center,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Usage Time: $usageTime',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
     );

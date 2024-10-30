@@ -37,8 +37,6 @@ class _TrackPageState extends State<TrackPage> {
   _getData(String email, BuildContext context) async {
     String apiUrl = '${UrlConstants.apiUrl}/get-data?email=$email';
 
-    //String apiUrl = 'http://192.168.139.109:3000/get-data?email=$email';
-
     final response = await http.get(
       Uri.parse(apiUrl),
       headers: <String, String>{
@@ -47,10 +45,6 @@ class _TrackPageState extends State<TrackPage> {
     );
 
     if (response.statusCode == 200) {
-      //_showResultDialog("Data sent successfully ${response.body}", context);
-      // setState(() {
-      //   jsonData = response.body;
-      // });
       return response.body;
     }
     return "";
@@ -94,7 +88,6 @@ class _TrackPageState extends State<TrackPage> {
             slivers: [
               SliverAppBar(
                 iconTheme: IconThemeData(color: Colors.white70),
-                //floating: true,
                 backgroundColor: Colors.transparent,
                 actions: [
                   IconButton(
@@ -112,7 +105,6 @@ class _TrackPageState extends State<TrackPage> {
                     children: [
                       Center(
                         child: SizedBox(
-                          //color: Colors.blueGrey,
                           height: 45,
                           child: DefaultTextStyle(
                             textAlign: TextAlign.center,
@@ -148,9 +140,6 @@ class _TrackPageState extends State<TrackPage> {
                       const SizedBox(
                         height: 10,
                       ),
-
-                      /////////////////
-
                       Container(
                         constraints: BoxConstraints(
                           minHeight: height / 1.2,
@@ -166,7 +155,6 @@ class _TrackPageState extends State<TrackPage> {
                               height: 10,
                             ),
                             Container(
-                                //color: Colors.red,
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(15),
                                 child: Text(
@@ -226,7 +214,6 @@ class _TrackPageState extends State<TrackPage> {
                               height: 40,
                             ),
                             MyBigButton(
-                                //imagePath: "lib/assets/images/calculator.png",
                                 animationPath: "lib/assets/calculator.json",
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.teal[800],
@@ -242,9 +229,7 @@ class _TrackPageState extends State<TrackPage> {
                               height: 20,
                             ),
                             MyBigButton(
-                                //imagePath: 'lib/assets/images/basiccalculator.png',
-                                animationPath:
-                                    'lib/assets/basiccalculator.json',
+                                animationPath: 'lib/assets/basiccalculator.json',
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.cyan[800],
                                 onTap: () {
@@ -260,7 +245,6 @@ class _TrackPageState extends State<TrackPage> {
                             ),
                             MyBigButton(
                                 imagePath: 'lib/assets/images/previous.png',
-                                //animationPath:'lib/assets/previous.json' ,
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.lightGreen[800],
                                 onTap: () {
@@ -275,9 +259,7 @@ class _TrackPageState extends State<TrackPage> {
                               height: 20,
                             ),
                             MyBigButton(
-                                // You can customize the animation or image here
-                                // animationPath:
-                                //     'lib/assets/electricity.json', // Use a new animation file for Electricity if you have one
+                                animationPath: 'lib/assets/electricity.json',
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.lightGreen[800],
                                 onTap: () {
@@ -285,7 +267,7 @@ class _TrackPageState extends State<TrackPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ElectricityPage())); // Replace with your Electricity page widget
+                                              ElectricityPage()));
                                 },
                                 strValue: "Electricity"),
                             const SizedBox(

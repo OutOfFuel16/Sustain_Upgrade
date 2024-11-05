@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
 
 import 'package:campus_carbon/decorators/bigbutton.dart';
 import 'package:campus_carbon/pages/home_page_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_carbon/pages/adv_calculator.dart';
 import 'package:campus_carbon/pages/user_data_display.dart';
 import 'package:campus_carbon/pages/basic_calculator.dart';
 import 'package:campus_carbon/pages/electricity_page.dart';
@@ -214,21 +211,6 @@ class _TrackPageState extends State<TrackPage> {
                               height: 40,
                             ),
                             MyBigButton(
-                                animationPath: "lib/assets/calculator.json",
-                                startColor: Colors.blueGrey[900],
-                                endColor: Colors.teal[800],
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AdvCalculator(
-                                              email: user.email ?? "NA")));
-                                },
-                                strValue: "Advanced Calculator"),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            MyBigButton(
                                 animationPath: 'lib/assets/basiccalculator.json',
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.cyan[800],
@@ -239,7 +221,7 @@ class _TrackPageState extends State<TrackPage> {
                                           builder: (context) =>
                                               const BasicCalculator()));
                                 },
-                                strValue: "Basic Calculator"),
+                                strValue: "Carbon Emission Calculator"),
                             const SizedBox(
                               height: 20,
                             ),

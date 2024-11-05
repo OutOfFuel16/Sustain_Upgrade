@@ -66,7 +66,7 @@ class _LearnPageState extends State<LearnPage> {
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(15),
                                     child: Text(
-                                      "Explore environmental news and sustainability tips for reducing Carbon Footprint.",
+                                      "Discover Practical Ways to Reduce Electricity Use, Cut Air Pollution, and Build a Sustainable Future.",
                                       style: GoogleFonts.quicksand(
                                           textStyle: const TextStyle(fontSize: 18,
                                               fontWeight: FontWeight.w500)),

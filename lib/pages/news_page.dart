@@ -1,4 +1,4 @@
-import 'package:campus_carbon/contollers/news_controller.dart';
+import 'package:campus_carbon/controllers/news_controller.dart';
 import 'package:campus_carbon/views/web_view_news.dart';
 import 'package:campus_carbon/widgets/news_card.dart';
 import 'package:flutter/material.dart';

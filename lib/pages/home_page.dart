@@ -3,7 +3,6 @@
 import 'package:campus_carbon/pages/about_page.dart';
 import 'package:campus_carbon/pages/learn_page.dart';
 import 'package:campus_carbon/pages/track_home_page.dart';
-import 'package:campus_carbon/pages/trading_page.dart';
 import 'package:campus_carbon/pages/leaderboard_page.dart'; // Import LeaderboardPage
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,12 +70,12 @@ class _HomePageState extends State<HomePage> {
             icon: CupertinoIcons.lightbulb,
             text: 'Learn',
           ),
-          GButton(
-            iconColor: Colors.grey[500],
-            icon: Icons.co2,
-            text: 'Offset',
-            iconSize: 33,
-          ),
+          // GButton( // Trading tab commented out
+          //   iconColor: Colors.grey[500],
+          //   icon: Icons.co2,
+          //   text: 'Offset',
+          //   iconSize: 33,
+          // ),
           GButton(
             iconColor: Colors.grey[500],
             icon: Icons.leaderboard,
@@ -104,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           TrackPage(),
           CollegePage(),
           LearnPage(),
-          TradingPage(),
+          // TradingPage(), // TradingPage commented out
           LeaderboardPage(), // Add LeaderboardPage here
           AboutPage(),
         ],

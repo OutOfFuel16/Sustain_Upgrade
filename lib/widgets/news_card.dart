@@ -4,32 +4,30 @@ import 'package:flutter/material.dart';
 class NewsCard extends StatelessWidget {
   final String imgUrl, title, desc, content, postUrl;
 
-  const NewsCard(
-      {super.key, // Use super.key only
-      required this.imgUrl,
-      required this.desc,
-      required this.title,
-      required this.content,
-      required this.postUrl});
+  const NewsCard({
+    super.key,
+    required this.imgUrl,
+    required this.desc,
+    required this.title,
+    required this.content,
+    required this.postUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
-          const SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Container(
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(10),
             ),
-            height: MediaQuery.of(context).size.height * 0.28,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min, // Use min to fit content
               children: <Widget>[
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -39,10 +37,9 @@ class NewsCard extends StatelessWidget {
                   child: Image.network(
                     imgUrl,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    fit: BoxFit.fitWidth,
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
+                    width: double.infinity,
+                    fit: BoxFit.cover, // Cover instead of fitWidth
+                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                       return Card(
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -61,7 +58,8 @@ class NewsCard extends StatelessWidget {
                   padding: const EdgeInsets.all(Sizes.dimen_6),
                   child: Text(
                     title,
-                    maxLines: 2,
+                    maxLines: 2, // Limit to two lines
+                    overflow: TextOverflow.ellipsis, // Ellipsis for overflow
                     style: const TextStyle(
                       color: Colors.black87,
                       fontSize: 15,

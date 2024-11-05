@@ -155,7 +155,7 @@ class _TrackPageState extends State<TrackPage> {
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(15),
                                 child: Text(
-                                  "Track your individual environmental footprint.",
+                                  "Real-Time Electricity Monitoring, Smart Switch Usage and Carbon footprint.",
                                   style: GoogleFonts.quicksand(
                                       textStyle: TextStyle(
                                           fontSize: 18,
@@ -210,6 +210,22 @@ class _TrackPageState extends State<TrackPage> {
                             const SizedBox(
                               height: 40,
                             ),
+                            // Updated button order
+                            MyBigButton(
+                                animationPath: 'lib/assets/electricity.json',
+                                startColor: Colors.blueGrey[900],
+                                endColor: Colors.lightGreen[800],
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ElectricityPage()));
+                                },
+                                strValue: "Electricity"),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             MyBigButton(
                                 animationPath: 'lib/assets/basiccalculator.json',
                                 startColor: Colors.blueGrey[900],
@@ -237,21 +253,6 @@ class _TrackPageState extends State<TrackPage> {
                                               email: user.email ?? "NA")));
                                 },
                                 strValue: "Get Previous Data"),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            MyBigButton(
-                                animationPath: 'lib/assets/electricity.json',
-                                startColor: Colors.blueGrey[900],
-                                endColor: Colors.lightGreen[800],
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ElectricityPage()));
-                                },
-                                strValue: "Electricity"),
                             const SizedBox(
                               height: 20,
                             ),

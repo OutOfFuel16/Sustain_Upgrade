@@ -3,13 +3,14 @@
 import 'package:campus_carbon/pages/about_page.dart';
 import 'package:campus_carbon/pages/learn_page.dart';
 import 'package:campus_carbon/pages/track_home_page.dart';
-import 'package:campus_carbon/pages/leaderboard_page.dart'; // Import LeaderboardPage
+import 'package:campus_carbon/pages/leaderboard_page.dart';
+import 'package:campus_carbon/pages/college_page.dart';
+import 'package:campus_carbon/pages/representative_users.dart'; // Import RepresentativesUsersPage
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'college_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -70,16 +71,15 @@ class _HomePageState extends State<HomePage> {
             icon: CupertinoIcons.lightbulb,
             text: 'Learn',
           ),
-          // GButton( // Trading tab commented out
-          //   iconColor: Colors.grey[500],
-          //   icon: Icons.co2,
-          //   text: 'Offset',
-          //   iconSize: 33,
-          // ),
           GButton(
             iconColor: Colors.grey[500],
             icon: Icons.leaderboard,
-            text: 'Leaderboard', // Add Leaderboard tab here
+            text: 'Leaderboard',
+          ),
+          GButton(
+            iconColor: Colors.grey[500],
+            icon: Icons.groups,
+            text: 'Representatives', // New Tab for RepresentativesUsersPage
           ),
           GButton(
             iconColor: Colors.grey[500],
@@ -103,8 +103,8 @@ class _HomePageState extends State<HomePage> {
           TrackPage(),
           CollegePage(),
           LearnPage(),
-          // TradingPage(), // TradingPage commented out
-          LeaderboardPage(), // Add LeaderboardPage here
+          LeaderboardPage(),
+          RepresentativesUsersPage(), // New RepresentativesUsersPage
           AboutPage(),
         ],
       ),

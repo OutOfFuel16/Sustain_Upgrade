@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:campus_carbon/decorators/bigbutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:campus_carbon/pages/map.dart';
-import 'package:campus_carbon/pages/add_data_page.dart';
+import 'package:campus_carbon/pages/add_data_page.dart'; // Import AddDataPage
+//import 'package:campus_carbon/pages/add_data_screen.dart'; // Import the new AddDataScreen
 import 'package:campus_carbon/pages/aqi_page.dart'; // Import the AQI page if you have one
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -34,10 +35,8 @@ class _CollegePageState extends State<CollegePage> {
             backgroundColor: Colors.blueGrey[300],
             shape: const CircleBorder(),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChatterPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatterPage()));
             },
             child: Lottie.asset('lib/assets/bot.json'),
           ),
@@ -104,13 +103,27 @@ class _CollegePageState extends State<CollegePage> {
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.green[700],
                                 onTap: () => _addDataPage(user, context),
-                                strValue: "Add Data"),
+                                strValue:
+                                    "Add Data"), // Existing Add Data Button
                             const SizedBox(
                               height: 20,
                             ),
+                            // MyBigButton(
+                            //     animationPath:
+                            //         "lib/assets/add_data_screen.json", // New animation for Add Data Screen
+                            //     startColor: Colors.blueGrey[900],
+                            //     endColor: Colors.green[700],
+                            //     onTap: () =>
+                            //         _navigateToAddDataScreen(user, context),
+                            //     strValue:
+                            //         "Add Data Screen"), // New Button for Add Data Screen
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
                             // New "Air Around Me" Button
                             MyBigButton(
-                                animationPath: "lib/assets/aqi.json", // Path to animation
+                                animationPath:
+                                    "lib/assets/aqi.json", // Path to animation
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.orange[700],
                                 onTap: () {
@@ -161,7 +174,17 @@ class _CollegePageState extends State<CollegePage> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const AddDataPage()));
     } else {
-      _showResultDialog("Need Admin Privileges", context);
+      _showResultDialog(
+          "Need Admin Privileges", context); // Show error for non-admins
     }
   }
+
+//   // Navigate to the new Add Data Screen
+//   _navigateToAddDataScreen(user, BuildContext context) {
+//     Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//             builder: (context) =>
+//                 AddDataScreen())); // Navigate to the Add Data Screen
+//   }
 }

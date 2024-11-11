@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_maps/maps.dart';
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'add_data_screen.dart';
 
 class CollegeMap extends StatefulWidget {
   const CollegeMap({super.key});
@@ -17,6 +18,25 @@ class CollegeMap extends StatefulWidget {
 
 class CollegeMapState extends State<CollegeMap>
     with SingleTickerProviderStateMixin {
+  List<MapMarker> userSubmittedMarkers = [];
+
+  // Method to add a new marker to the map
+  void _addMarkerFromData(Map<String, dynamic> data) {
+    setState(() {
+      userSubmittedMarkers.add(
+        MapMarker(
+          latitude: data['lat'],
+          longitude: data['lng'],
+          child: Icon(
+            data['verified'] ? Icons.check_circle : Icons.info,
+            color: data['verified'] ? Colors.green : Colors.red,
+          ),
+        ),
+      );
+      print('Marker added: ${data['lat']}, ${data['lng']}');
+    });
+  }
+
   late List<dynamic> data;
 
   late MapZoomPanBehavior _zoomPanBehavior;
@@ -32,7 +52,7 @@ class CollegeMapState extends State<CollegeMap>
   late List<List<MapLatLng>> _staffpolygon;
   late List<List<MapLatLng>> _megastarpolygon;
   late List<List<MapLatLng>> _oneBitepolygon;
-  
+
   late List<List<MapLatLng>> _allMesspolygon;
   late List<List<MapLatLng>> _allCanteenpolygon;
   late List<List<MapLatLng>> _allStorespolygon;
@@ -894,7 +914,16 @@ class CollegeMapState extends State<CollegeMap>
         MapLatLng(31.781835451603328, 76.99885581559346)
       ]
     ];
-    _oneBitepolygon=[[MapLatLng(31.78129874617737, 76.99399352127381), MapLatLng(31.781214009443474, 76.99391377515474), MapLatLng(31.78115151605199, 76.9940209340026), MapLatLng(31.781251081774244, 76.99410317218792), MapLatLng(31.781309338263384, 76.99399850540618), MapLatLng(31.78129874617737, 76.99399352127381)]];
+    _oneBitepolygon = [
+      [
+        MapLatLng(31.78129874617737, 76.99399352127381),
+        MapLatLng(31.781214009443474, 76.99391377515474),
+        MapLatLng(31.78115151605199, 76.9940209340026),
+        MapLatLng(31.781251081774244, 76.99410317218792),
+        MapLatLng(31.781309338263384, 76.99399850540618),
+        MapLatLng(31.78129874617737, 76.99399352127381)
+      ]
+    ];
     _monalpolygon = [
       [
         MapLatLng(31.781921549763197, 76.99880719884874),
@@ -911,8 +940,16 @@ class CollegeMapState extends State<CollegeMap>
         MapLatLng(31.781921549763197, 76.99880719884874)
       ]
     ];
-    _megastarpolygon=[[MapLatLng(31.78131887114077, 76.99398355300923), MapLatLng(31.781257437029296, 76.99393371168503), MapLatLng(31.781188588407772, 76.99401345780421), MapLatLng(31.781335818474133, 76.99418790243925),
-      MapLatLng(31.78141949589009, 76.99409694202251), MapLatLng(31.78131887114077, 76.99398355300923)]];
+    _megastarpolygon = [
+      [
+        MapLatLng(31.78131887114077, 76.99398355300923),
+        MapLatLng(31.781257437029296, 76.99393371168503),
+        MapLatLng(31.781188588407772, 76.99401345780421),
+        MapLatLng(31.781335818474133, 76.99418790243925),
+        MapLatLng(31.78141949589009, 76.99409694202251),
+        MapLatLng(31.78131887114077, 76.99398355300923)
+      ]
+    ];
     _allMesspolygon = [];
     _allMesspolygon.addAll(_alderpolygon);
     _allMesspolygon.addAll(_pineDrongopolygon);
@@ -953,7 +990,22 @@ class CollegeMapState extends State<CollegeMap>
 
   void _handleSelection(
       BuildContext context, String areaName, List<dynamic> data1) {
-    Map<String, String> locations ={'Monal' : 'monal', 'Oak' : 'oak mess', 'Alder':'alder mess','Pine':'pine mess','Tulsi':'tragopan / tulsi','OneBite':'one bite','Drongo':'drongo','Redstart':'red start','Tragopan':'tragopan / tulsi', 'Hostels' :'hostel', 'Acad Block': 'Institude', 'Megastar' : 'megastar', 'Staff Residence': 'faculty','Green Areas': 'green'};
+    Map<String, String> locations = {
+      'Monal': 'monal',
+      'Oak': 'oak mess',
+      'Alder': 'alder mess',
+      'Pine': 'pine mess',
+      'Tulsi': 'tragopan / tulsi',
+      'OneBite': 'one bite',
+      'Drongo': 'drongo',
+      'Redstart': 'red start',
+      'Tragopan': 'tragopan / tulsi',
+      'Hostels': 'hostel',
+      'Acad Block': 'Institude',
+      'Megastar': 'megastar',
+      'Staff Residence': 'faculty',
+      'Green Areas': 'green'
+    };
     String? loc = locations[areaName];
 
     Map<String, dynamic> data = {};
@@ -974,17 +1026,15 @@ class CollegeMapState extends State<CollegeMap>
       }
     }
 
-
     Map<String, String> wordMapper = {
-
-      'paper' : 'Paper & Tree Products',
-      'food' : 'Food',
-      'gas' : 'Gas' ,
-      'others' : 'Other sources',
-      'vehicle' : 'Institute Vehicles',
-      'electricity' : 'Campus Electricity',
-      'consumption' : 'Product Consumption (from outside campus)',
-      'offset' : 'Carbon Offset',
+      'paper': 'Paper & Tree Products',
+      'food': 'Food',
+      'gas': 'Gas',
+      'others': 'Other sources',
+      'vehicle': 'Institute Vehicles',
+      'electricity': 'Campus Electricity',
+      'consumption': 'Product Consumption (from outside campus)',
+      'offset': 'Carbon Offset',
       'vehicles': 'Vehicles',
     };
 
@@ -1042,14 +1092,18 @@ class CollegeMapState extends State<CollegeMap>
                   if (data.isNotEmpty)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: data['carbonData'][0]['carbonData'].keys
+                      children: data['carbonData'][0]['carbonData']
+                          .keys
                           .where((key) => key != 'Date' && key != '_id')
                           .map<Widget>((key) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Icon(Icons.circle, size: 6,),
+                              Icon(
+                                Icons.circle,
+                                size: 6,
+                              ),
                               Flexible(
                                 child: Text(
                                   " ${wordMapper[key]}: ${data['carbonData'][0]['carbonData'][key].toStringAsFixed(3)} kgs",
@@ -1084,10 +1138,10 @@ class CollegeMapState extends State<CollegeMap>
     );
   }
 
-
   Future<void> fetchData() async {
     try {
-      String apiUrl = 'https://carbon-campus-server.onrender.com/campus/get-all-data';
+      String apiUrl =
+          'https://carbon-campus-server.onrender.com/campus/get-all-data';
       final response = await http.get(
         Uri.parse(apiUrl),
         headers: <String, String>{
@@ -1108,6 +1162,7 @@ class CollegeMapState extends State<CollegeMap>
 
   @override
   Widget build(BuildContext context) {
+    print('Rebuilding CollegeMapState...');
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           splashColor: Colors.lightGreen[100],
@@ -1118,6 +1173,26 @@ class CollegeMapState extends State<CollegeMap>
             _zoomPanBehavior.zoomLevel = 16;
           },
           child: const Icon(Icons.gps_fixed),
+        ),
+        appBar: AppBar(
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddDataScreen(),
+                  ),
+                ).then((newData) {
+                  if (newData != null) {
+                    _addMarkerFromData(newData);
+                    // Optionally, trigger notifications here if needed
+                  }
+                });
+              },
+              child: Text('Add Data'),
+            ),
+          ],
         ),
         body: Stack(children: [
           Center(
@@ -1537,11 +1612,9 @@ class CollegeMapState extends State<CollegeMap>
                                 MapPolygonLayer(
                                   polygons: _selectedIndex == 9
                                       ? List<MapPolygon>.generate(
-                                          _oneBitepolygon.length,
-                                          (int index) {
+                                          _oneBitepolygon.length, (int index) {
                                           return MapPolygon(
-                                              points: _oneBitepolygon[
-                                                  index]);
+                                              points: _oneBitepolygon[index]);
                                         }).toSet()
                                       : Set<MapPolygon>(),
                                   color: Colors.transparent,
@@ -1803,11 +1876,9 @@ class CollegeMapState extends State<CollegeMap>
                                 MapPolygonLayer(
                                   polygons: _selectedIndex == 16
                                       ? List<MapPolygon>.generate(
-                                          _megastarpolygon.length,
-                                          (int index) {
+                                          _megastarpolygon.length, (int index) {
                                           return MapPolygon(
-                                            points:
-                                                _megastarpolygon[index],
+                                            points: _megastarpolygon[index],
                                           );
                                         }).toSet()
                                       : Set<MapPolygon>(),
@@ -1853,6 +1924,9 @@ class CollegeMapState extends State<CollegeMap>
                                   },
                                 ),
                               ],
+                              markerBuilder: (BuildContext context, int index) {
+                                return userSubmittedMarkers[index];
+                              },
                             )
                           ],
                         ));

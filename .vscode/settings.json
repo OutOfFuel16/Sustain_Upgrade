@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/sem3/dp/output/linux"
+    "cmake.sourceDirectory": "D:/sem3/dp/output/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

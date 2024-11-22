@@ -49,7 +49,7 @@ class AboutPage extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  "Welcome to EcoTrack, your all-in-one solution for reducing carbon footprints through energy monitoring and sustainability at IIT Mandi!",
+                  "Welcome to SustainX, your all-in-one solution for  energy monitoring and sustainability at IIT Mandi!",
                   style: GoogleFonts.quicksand(
                       textStyle: const TextStyle(fontSize: 18)),
                 ),
@@ -66,7 +66,7 @@ class AboutPage extends StatelessWidget {
                   height: 21,
                 ),
                 Text(
-                  "At EcoTrack, we aim to integrate sustainability into everyday campus life by reducing energy consumption, promoting eco-friendly practices, and offering a rewarding experience to all users. Our mission is to empower individuals to track and reduce their carbon footprint while fostering a culture of sustainability within the IIT Mandi community.",
+                  "At SustainX, we aim to integrate sustainability into everyday campus life by reducing energy consumption, promoting eco-friendly practices, and offering a rewarding experience to all users. Our mission is to empower individuals to track their energy usage while fostering a culture of sustainability within the IIT Mandi community.",
                   style: GoogleFonts.quicksand(
                       textStyle: const TextStyle(fontSize: 18)),
                 ),
@@ -83,9 +83,9 @@ class AboutPage extends StatelessWidget {
                   height: 21,
                 ),
                 const LeafListItem(
-                    heading: 'Campus Carbon Footprint Tracker: ',
+                    heading: 'Air Quality Index Monitoring: ',
                     text:
-                        "Track and analyze the carbon emissions of IIT Mandi, broken down by departments and activities."),
+                        "Track and analyze the carbon emissions of IIT Mandi, broken down by departments and activitie."),
                 const LeafListItem(
                     heading: 'Energy Consumption Monitoring: ',
                     text:
@@ -102,7 +102,7 @@ class AboutPage extends StatelessWidget {
                   height: 26,
                 ),
                 Text(
-                  "Why EcoTrack?",
+                  "Why SustainX?",
                   style: GoogleFonts.mulish(
                       textStyle: const TextStyle(
                           fontSize: 28, fontWeight: FontWeight.w600)),
@@ -111,7 +111,7 @@ class AboutPage extends StatelessWidget {
                   height: 21,
                 ),
                 Text(
-                  "By using EcoTrack, you're not just tracking your carbon emissions – you're actively making a difference by contributing to a greener, more sustainable IIT Mandi. Whether you're a student, faculty member, or staff, together we can reduce our environmental impact and lead the change in sustainability.",
+                  "By using SustainX, you're not just tracking your energy consumption – you're actively making a difference by contributing to a greener, more sustainable IIT Mandi. Whether you're a student, faculty member, or staff, together we can reduce our environmental impact and lead the change in sustainability.",
                   style: GoogleFonts.quicksand(
                       textStyle: const TextStyle(fontSize: 18)),
                 ),

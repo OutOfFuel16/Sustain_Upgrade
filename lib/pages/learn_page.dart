@@ -1,5 +1,4 @@
 import 'package:campus_carbon/pages/chatter_page.dart';
-import 'package:campus_carbon/pages/recommendations.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_carbon/decorators/bigbutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';

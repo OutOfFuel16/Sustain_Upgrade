@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_carbon/pages/user_data_display.dart';
 import 'package:campus_carbon/pages/basic_calculator.dart';
-import 'package:campus_carbon/pages/electricity_page.dart';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';

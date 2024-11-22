@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:campus_carbon/pages/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -13,19 +12,34 @@ class SplashScreen extends StatelessWidget {
 
     return Center(
       child: AnimatedSplashScreen(
-        duration: 6100,
-        backgroundColor: const Color(0xFFFFFFFF),
+        duration: 3000, // Duration of the splash screen
+        backgroundColor: const Color(0xFFFFFFFF), // White background
         splash: Center(
-          child: LottieBuilder.asset("lib/assets/finalsplash.json", height: height, width: width,
-            fit: BoxFit.contain,),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Display the image to the left of the text
+              Image.asset(
+                'lib/assets/images/earth2.png',
+                height: height * 0.1, // Adjust the height as needed
+                width: width * 0.1,   // Adjust the width as needed
+              ),
+              const SizedBox(width: 10), // Space between image and text
+              // Display the text next to the image
+              Text(
+                'SustainX', // App name
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
+              ),
+            ],
+          ),
         ),
         nextScreen: const Auth(),
-        splashIconSize: 1000,
-
+        splashIconSize: 300, // Size of the splash area
       ),
-
     );
   }
 }
-
-

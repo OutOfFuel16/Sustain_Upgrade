@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_maps/maps.dart';
-import 'locations.dart'; // Ensure this imports your locations.dart file
-
-// Add the ThankYouScreen import
+import 'dart:convert'; // For JSON encoding/decoding
+import 'package:http/http.dart' as http; // For making HTTP requests
 import 'thank_you_submit.dart'; // Import the Thank You screen
-import "map.dart";
+import 'map.dart'; // Import the map screen
 
 class AddDataScreen extends StatefulWidget {
   @override
@@ -13,25 +11,18 @@ class AddDataScreen extends StatefulWidget {
 
 class _AddDataScreenState extends State<AddDataScreen> {
   String _selectedCategory = '';
-  String? _selectedSubcategory;
-  String _userData = '';
-  List<MapLatLng> selectedLocationCoords = [];
+  String _specificLocation = '';
+  String _issueDescription = '';
 
-  final Map<String, List<List<MapLatLng>>> locationCategories = {
-    'Academic': Academic,
-    'Hostel': Hostels,
-    'Green Area': green_area,
-    'Staff': staff,
-    'Messes': [],
-    'Stores': [],
-    'Canteens': [],
-  };
-
-  final Map<String, List<String>> subcategoryNames = {
-    'Messes': ['Alder', 'Pine', 'Oak', 'Tulsi'],
-    'Stores': ['Redstart', 'Megastar'],
-    'Canteens': ['Monal', 'Drongo', 'Trago', 'One Bite'],
-  };
+  final List<String> categories = [
+    'Academic',
+    'Hostel',
+    'Green Area',
+    'Staff',
+    'Mess',
+    'Store',
+    'Canteen'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,92 +31,109 @@ class _AddDataScreenState extends State<AddDataScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Select Location to Add Data:',
-                style: TextStyle(fontSize: 18)),
+            // Dropdown for selecting a category
+            Text('Select Location Category:', style: TextStyle(fontSize: 18)),
             DropdownButton<String>(
               value: _selectedCategory.isEmpty ? null : _selectedCategory,
               hint: Text('Select a Location Category'),
               onChanged: (String? newValue) {
                 setState(() {
                   _selectedCategory = newValue!;
-                  _selectedSubcategory = null;
-                  selectedLocationCoords.clear();
-
-                  if (!subcategoryNames.containsKey(_selectedCategory)) {
-                    selectedLocationCoords =
-                        locationCategories[newValue]!.expand((e) => e).toList();
-                  }
                 });
               },
-              items: locationCategories.keys
-                  .map<DropdownMenuItem<String>>((String value) {
+              items: categories.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                     value: value, child: Text(value));
               }).toList(),
             ),
             SizedBox(height: 20),
-            if (_selectedCategory.isNotEmpty &&
-                subcategoryNames.containsKey(_selectedCategory))
-              DropdownButton<String>(
-                value: _selectedSubcategory,
-                hint: Text('Select a specific location'),
-                onChanged: (String? newSubcategory) {
-                  setState(() {
-                    _selectedSubcategory = newSubcategory;
-                    if (newSubcategory != null) {
-                      selectedLocationCoords =
-                          _getLocationCoordinatesForSubcategory(newSubcategory);
-                    }
-                  });
-                },
-                items: subcategoryNames[_selectedCategory]!
-                    .map<DropdownMenuItem<String>>((String subcategory) {
-                  return DropdownMenuItem<String>(
-                    value: subcategory,
-                    child: Text(subcategory),
-                  );
-                }).toList(),
-              ),
-            SizedBox(height: 20),
+
+            // TextField for specific location
             TextField(
               onChanged: (value) {
                 setState(() {
-                  _userData = value;
+                  _specificLocation = value;
                 });
               },
               decoration: InputDecoration(
-                labelText: 'Enter your data (e.g., maintenance issue)',
+                labelText: 'Enter Specific Location (e.g., Room 101)',
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (_userData.isNotEmpty && selectedLocationCoords.isNotEmpty) {
-                  var coords = selectedLocationCoords.first;
-                  double lat = coords.latitude;
-                  double lng = coords.longitude;
 
-                  // Navigate to the "Thank You" screen after submission
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ThankYouScreen(
-                        onViewMapClick: () {
-                          // Navigate back to the map screen
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  CollegeMap(), // Your Map screen widget
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  );
+            // TextField for issue description
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  _issueDescription = value;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Enter Issue Description',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+
+            // Submit button
+            ElevatedButton(
+              onPressed: () async {
+                if (_selectedCategory.isNotEmpty &&
+                    _specificLocation.isNotEmpty &&
+                    _issueDescription.isNotEmpty) {
+                  // Prepare data to send to the backend
+                  var data = {
+                    'category': _selectedCategory,
+                    'location': _specificLocation,
+                    'issue': _issueDescription,
+                  };
+
+                  try {
+                    // Replace '<your_backend_url>' with your backend's URL
+                    var response = await http.post(
+                      Uri.parse(
+                          'http://localhost:3000/submit_data'), // Add backend URL here
+                      headers: {'Content-Type': 'application/json'},
+                      body: jsonEncode(data),
+                    );
+
+                    if (response.statusCode == 201) {
+                      // Navigate to the Thank You screen on success
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ThankYouScreen(
+                            onViewMapClick: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CollegeMap(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    } else {
+                      // Show an error message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('Failed to submit data: ${response.body}'),
+                        ),
+                      );
+                    }
+                  } catch (error) {
+                    // Show a snackbar for network or unexpected errors
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: $error')),
+                    );
+                  }
                 } else {
+                  // Prompt the user to fill in all fields
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Please fill in all fields')),
                   );
@@ -137,33 +145,5 @@ class _AddDataScreenState extends State<AddDataScreen> {
         ),
       ),
     );
-  }
-
-  List<MapLatLng> _getLocationCoordinatesForSubcategory(
-      String subcategoryName) {
-    switch (subcategoryName) {
-      case 'Alder':
-        return mess_list[0];
-      case 'Pine':
-        return mess_list[1];
-      case 'Oak':
-        return mess_list[2];
-      case 'Tulsi':
-        return mess_list[3];
-      case 'Redstart':
-        return stores_list[0];
-      case 'Megastar':
-        return stores_list[1];
-      case 'Monal':
-        return canteens_list[0];
-      case 'Drongo':
-        return canteens_list[1];
-      case 'Trago':
-        return canteens_list[2];
-      case 'One Bite':
-        return canteens_list[3];
-      default:
-        return [];
-    }
   }
 }

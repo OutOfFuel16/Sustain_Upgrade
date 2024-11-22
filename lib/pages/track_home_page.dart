@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:campus_carbon/decorators/bigbutton.dart';
 import 'package:campus_carbon/pages/home_page_data.dart';
+import 'package:campus_carbon/pages/remote_xy_webpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_carbon/pages/user_data_display.dart';
@@ -219,15 +220,15 @@ class _TrackPageState extends State<TrackPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              ElectricityPage()));
+                                          builder: (context) => WebLinkPage()));
                                 },
                                 strValue: "Electricity"),
                             const SizedBox(
                               height: 20,
                             ),
                             MyBigButton(
-                                animationPath: 'lib/assets/basiccalculator.json',
+                                animationPath:
+                                    'lib/assets/basiccalculator.json',
                                 startColor: Colors.blueGrey[900],
                                 endColor: Colors.cyan[800],
                                 onTap: () {
@@ -241,21 +242,21 @@ class _TrackPageState extends State<TrackPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            MyBigButton(
-                                imagePath: 'lib/assets/images/previous.png',
-                                startColor: Colors.blueGrey[900],
-                                endColor: Colors.lightGreen[800],
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => UserData(
-                                              email: user.email ?? "NA")));
-                                },
-                                strValue: "Get Previous Data"),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            // MyBigButton(
+                            //     imagePath: 'lib/assets/images/previous.png',
+                            //     startColor: Colors.blueGrey[900],
+                            //     endColor: Colors.lightGreen[800],
+                            //     onTap: () {
+                            //       Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //               builder: (context) => UserData(
+                            //                   email: user.email ?? "NA")));
+                            //     },
+                            //     strValue: "Get Previous Data"),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
                           ],
                         ),
                       )

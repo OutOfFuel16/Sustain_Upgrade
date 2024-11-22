@@ -71,16 +71,16 @@ class _HomePageState extends State<HomePage> {
             icon: CupertinoIcons.lightbulb,
             text: 'Learn',
           ),
-          GButton(
-            iconColor: Colors.grey[500],
-            icon: Icons.leaderboard,
-            text: 'Leaderboard',
-          ),
-          GButton(
-            iconColor: Colors.grey[500],
-            icon: Icons.groups,
-            text: 'Representatives', // New Tab for RepresentativesUsersPage
-          ),
+          // GButton(
+          //   iconColor: Colors.grey[500],
+          //   icon: Icons.leaderboard,
+          //   text: 'Leaderboard',
+          // ),
+          // GButton(
+          //   iconColor: Colors.grey[500],
+          //   icon: Icons.groups,
+          //   text: 'Representatives', // New Tab for RepresentativesUsersPage
+          // ),
           GButton(
             iconColor: Colors.grey[500],
             icon: Icons.info_outlined,
@@ -103,8 +103,8 @@ class _HomePageState extends State<HomePage> {
           TrackPage(),
           CollegePage(),
           LearnPage(),
-          LeaderboardPage(),
-          RepresentativesUsersPage(), // New RepresentativesUsersPage
+          // LeaderboardPage(),
+          // RepresentativesUsersPage(), // New RepresentativesUsersPage
           AboutPage(),
         ],
       ),

@@ -98,16 +98,16 @@ class _CollegePageState extends State<CollegePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            MyBigButton(
-                                animationPath: "lib/assets/add.json",
-                                startColor: Colors.blueGrey[900],
-                                endColor: Colors.green[700],
-                                onTap: () => _addDataPage(user, context),
-                                strValue:
-                                    "Add Data"), // Existing Add Data Button
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            // MyBigButton(
+                            //     animationPath: "lib/assets/add.json",
+                            //     startColor: Colors.blueGrey[900],
+                            //     endColor: Colors.green[700],
+                            //     onTap: () => _addDataPage(user, context),
+                            //     strValue:
+                            //         "Add Data"), // Existing Add Data Button
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
                             // MyBigButton(
                             //     animationPath:
                             //         "lib/assets/add_data_screen.json", // New animation for Add Data Screen

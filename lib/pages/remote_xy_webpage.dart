@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class WebLinkPage extends StatelessWidget {
   Future<void> _openLink() async {
-    const url = 'https://chatgpt.com/';
+    const url = 'http://192.168.4.1/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {

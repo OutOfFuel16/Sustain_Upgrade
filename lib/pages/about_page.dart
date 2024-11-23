@@ -23,7 +23,7 @@ class AboutPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.teal[800],
         title: Text(
-          'About EcoTrack',
+          'About SustainX',
           style: GoogleFonts.mulish(
               textStyle: TextStyle(
                   color: Colors.grey[200],

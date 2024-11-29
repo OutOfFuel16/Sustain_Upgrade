@@ -1,9 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // For decoding JSON data
 import 'add_data_screen.dart'; // Make sure to import the AddDataScreen
 
-class HappeningNowPage extends StatelessWidget {
+class HappeningNowPage extends StatefulWidget {
   const HappeningNowPage({super.key});
+
+  @override
+  _HappeningNowPageState createState() => _HappeningNowPageState();
+}
+
+class _HappeningNowPageState extends State<HappeningNowPage> {
+  List<dynamic> updates = [];
+
+  // Function to fetch data from the server
+  Future<void> fetchUpdates() async {
+    try {
+      var response = await http
+          .get(Uri.parse('https://dpbackend-jf4z.onrender.com/coordinates'));
+
+      if (response.statusCode == 200) {
+        // Parse the JSON data
+        List<dynamic> data = json.decode(response.body);
+
+        setState(() {
+          updates = data; // Store the fetched data
+        });
+
+        // Auto-remove the first update after 20 seconds
+        Future.delayed(Duration(seconds: 20), () {
+          if (mounted && updates.isNotEmpty) {
+            setState(() {
+              updates.removeAt(0); // Remove the first update after 20 seconds
+            });
+          }
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (error) {
+      // Handle errors such as no network or invalid response
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching updates: $error')),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUpdates(); // Fetch data when the page loads
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +88,42 @@ class HappeningNowPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: ListView(
-                children: [
-                  // Add updates dynamically here.
-                  _buildUpdateCard(
-                    title: "Example Event",
-                    description:
-                        "This is a placeholder description. Replace it with real updates.",
-                    color: Colors.orange[800]!,
-                  ),
-                  // Add more cards dynamically when updates are available.
-                ],
+              child: ListView.builder(
+                itemCount: updates.length,
+                itemBuilder: (context, index) {
+                  var update = updates[index];
+                  return Dismissible(
+                    key: Key(update['placeDescription'] ??
+                        'No Title'), // Unique key for each item
+                    onDismissed: (direction) {
+                      // Remove the item when swiped
+                      setState(() {
+                        updates.removeAt(index);
+                      });
+
+                      // Show a snackbar when item is dismissed
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Item dismissed")),
+                      );
+                    },
+                    direction:
+                        DismissDirection.endToStart, // Swipe from right to left
+                    background: Container(
+                      color: Colors.red,
+                      child: Icon(Icons.delete, color: Colors.white, size: 40),
+                    ),
+                    child: _buildUpdateCard(
+                      title: update['placeDescription'] ?? 'No Title',
+                      description: update['description'] ?? 'No Description',
+                      color: _getCardColor(index),
+                    ),
+                  );
+                },
               ),
             ),
             // Add the "Add Data" button here with gradient background
             Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 20), // Padding for the button from the bottom
+              padding: const EdgeInsets.only(bottom: 20),
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -64,21 +131,20 @@ class HappeningNowPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            AddDataScreen(), // Navigate to the AddDataScreen
+                        builder: (context) => AddDataScreen(),
                       ),
                     );
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size(double.infinity,
-                        50)), // Button width to take full space
+                    minimumSize:
+                        MaterialStateProperty.all(Size(double.infinity, 50)),
                     padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(horizontal: 30, vertical: 12)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     )),
-                    backgroundColor: MaterialStateProperty.all(Colors
-                        .transparent), // Transparent background for the gradient
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
                     elevation: MaterialStateProperty.all(5),
                   ),
                   child: Ink(
@@ -115,6 +181,19 @@ class HappeningNowPage extends StatelessWidget {
     );
   }
 
+  // Method to determine a random background color for each card
+  Color _getCardColor(int index) {
+    List<Color> colors = [
+      Colors.orange[800]!,
+      Colors.red[800]!,
+      Colors.green[800]!,
+      Colors.blue[800]!,
+      Colors.purple[800]!,
+    ];
+    return colors[index % colors.length];
+  }
+
+  // Method to build a single update card
   Widget _buildUpdateCard({
     required String title,
     required String description,

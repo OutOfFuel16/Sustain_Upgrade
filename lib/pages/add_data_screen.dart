@@ -192,7 +192,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                       // Replace '<your_machine_ip>' with your machine's IP address
                       var response = await http.post(
                         Uri.parse(
-                            'http://127.0.0.1:3000/coordinates'), // Add backend URL here
+                            'https://dpbackend-jf4z.onrender.com/coordinates'), // Add backend URL here
                         headers: {'Content-Type': 'application/json'},
                         body: jsonEncode(data),
                       );

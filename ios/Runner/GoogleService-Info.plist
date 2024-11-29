@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCn3Xug5TyvLPkOMdZKeWgGTO6R7s62I4Y</string>
+	<string>AIzaSyC11_D-DZ71o_BC6ov78DDETpFQLrCWTO8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>494693906468</string>
+	<string>382403170630</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.campusCarbon</string>
 	<key>PROJECT_ID</key>
-	<string>carbon-campus-f7990</string>
+	<string>carbon-campus</string>
 	<key>STORAGE_BUCKET</key>
-	<string>carbon-campus-f7990.firebasestorage.app</string>
+	<string>carbon-campus.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:494693906468:ios:35283e184ca49b0fec00b1</string>
+	<string>1:382403170630:ios:11445fadb0ccc13df39547</string>
 </dict>
 </plist>

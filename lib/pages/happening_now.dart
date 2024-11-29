@@ -13,25 +13,6 @@ class HappeningNowPage extends StatefulWidget {
 
 class _HappeningNowPageState extends State<HappeningNowPage> {
   List<dynamic> updates = [];
-  final List<String> categories = [
-    'Academic Block',
-    'Hostel',
-    'Green Area',
-    'Faculty Quarters',
-    'Mess',
-    'Store',
-    'Canteen'
-  ];
-
-  final Map<String, Color> categoryColors = {
-    'Academic Block': Colors.orange[800]!,
-    'Hostel': Colors.blue[800]!,
-    'Green Area': Colors.green[800]!,
-    'Faculty Quarters': Colors.purple[800]!,
-    'Mess': Colors.red[800]!,
-    'Store': Colors.teal[800]!,
-    'Canteen': Colors.pink[800]!,
-  };
 
   // Function to fetch data from the server
   Future<void> fetchUpdates() async {
@@ -44,7 +25,16 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         List<dynamic> data = json.decode(response.body);
 
         setState(() {
-          updates.insertAll(0, data); // Add fetched data at the top
+          updates = data; // Store the fetched data
+        });
+
+        // Auto-remove the first update after 20 seconds
+        Future.delayed(Duration(seconds: 20), () {
+          if (mounted && updates.isNotEmpty) {
+            setState(() {
+              updates.removeAt(0); // Remove the first update after 20 seconds
+            });
+          }
         });
       } else {
         throw Exception('Failed to load data');
@@ -102,19 +92,22 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
                 itemCount: updates.length,
                 itemBuilder: (context, index) {
                   var update = updates[index];
-                  String category = update['category'] ?? 'Unknown';
                   return Dismissible(
-                    key: Key(update['placeDescription'] ?? 'No Title'),
+                    key: Key(update['placeDescription'] ??
+                        'No Title'), // Unique key for each item
                     onDismissed: (direction) {
+                      // Remove the item when swiped
                       setState(() {
                         updates.removeAt(index);
                       });
 
+                      // Show a snackbar when item is dismissed
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Item dismissed")),
                       );
                     },
-                    direction: DismissDirection.endToStart,
+                    direction:
+                        DismissDirection.endToStart, // Swipe from right to left
                     background: Container(
                       color: Colors.red,
                       child: Icon(Icons.delete, color: Colors.white, size: 40),
@@ -122,18 +115,19 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
                     child: _buildUpdateCard(
                       title: update['placeDescription'] ?? 'No Title',
                       description: update['description'] ?? 'No Description',
-                      color: categoryColors[category] ??
-                          Colors.grey[800]!, // Default color for unknown
+                      color: _getCardColor(index),
                     ),
                   );
                 },
               ),
             ),
+            // Add the "Add Data" button here with gradient background
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    // Navigate to AddDataScreen when button is pressed
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -185,6 +179,18 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         ),
       ),
     );
+  }
+
+  // Method to determine a random background color for each card
+  Color _getCardColor(int index) {
+    List<Color> colors = [
+      Colors.orange[800]!,
+      Colors.red[800]!,
+      Colors.green[800]!,
+      Colors.blue[800]!,
+      Colors.purple[800]!,
+    ];
+    return colors[index % colors.length];
   }
 
   // Method to build a single update card

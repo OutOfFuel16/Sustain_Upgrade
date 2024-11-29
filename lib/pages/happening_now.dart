@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'add_data_screen.dart'; // Make sure to import the AddDataScreen
 
 class HappeningNowPage extends StatelessWidget {
   const HappeningNowPage({super.key});
@@ -44,11 +45,68 @@ class HappeningNowPage extends StatelessWidget {
                   // Add updates dynamically here.
                   _buildUpdateCard(
                     title: "Example Event",
-                    description: "This is a placeholder description. Replace it with real updates.",
+                    description:
+                        "This is a placeholder description. Replace it with real updates.",
                     color: Colors.orange[800]!,
                   ),
                   // Add more cards dynamically when updates are available.
                 ],
+              ),
+            ),
+            // Add the "Add Data" button here with gradient background
+            Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 20), // Padding for the button from the bottom
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigate to AddDataScreen when button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddDataScreen(), // Navigate to the AddDataScreen
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(Size(double.infinity,
+                        50)), // Button width to take full space
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 30, vertical: 12)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    )),
+                    backgroundColor: MaterialStateProperty.all(Colors
+                        .transparent), // Transparent background for the gradient
+                    elevation: MaterialStateProperty.all(5),
+                  ),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.teal[800]!, Colors.blueAccent],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      constraints: BoxConstraints(
+                          maxWidth: double.infinity, minHeight: 50),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Report an Issue",
+                        style: GoogleFonts.mulish(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

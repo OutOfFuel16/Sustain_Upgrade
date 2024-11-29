@@ -55,6 +55,7 @@ dependencies:
   dash_chat_2: ^0.0.20
   chat_gpt_sdk: ^3.0.7
   google_generative_ai: ^0.3.2
+  geolocator: ^9.0.2
   
   
 

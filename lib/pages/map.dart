@@ -1175,33 +1175,33 @@ class CollegeMapState extends State<CollegeMap>
           child: const Icon(Icons.gps_fixed),
         ),
         appBar: AppBar(
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddDataScreen(),
-                  ),
-                ).then((newData) {
-                  if (newData != null) {
-                    _addMarkerFromData(newData);
-                    // Optionally, trigger notifications here if needed
-                  }
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.deepPurple,
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: Text('Add Data'),
+            // actions: [
+            //   ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => AddDataScreen(),
+            //         ),
+            //       ).then((newData) {
+            //         if (newData != null) {
+            //           _addMarkerFromData(newData);
+            //           // Optionally, trigger notifications here if needed
+            //         }
+            //       });
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //       foregroundColor: Colors.white,
+            //       backgroundColor: Colors.deepPurple,
+            //       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //       ),
+            //     ),
+            //     child: Text('Add Data'),
+            //   ),
+            // ],
             ),
-          ],
-        ),
         body: Stack(children: [
           Center(
             child: FutureBuilder(

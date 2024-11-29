@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class WebLinkPage extends StatelessWidget {
-  Future<void> _openLink() async {
-    const url = 'http://192.168.4.1/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+class WebLinkPage extends StatefulWidget {
+  @override
+  _WebLinkPageState createState() => _WebLinkPageState();
+}
 
+class _WebLinkPageState extends State<WebLinkPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Check your real time consumption value'),
+        title: Text('Check your real-time consumption value'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _openLink,
-          child: Text('Click here'),
-        ),
+      body: WebView(
+        initialUrl: 'http://192.168.4.1/',
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

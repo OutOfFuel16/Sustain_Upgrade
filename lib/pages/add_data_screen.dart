@@ -84,18 +84,18 @@ class _AddDataScreenState extends State<AddDataScreen> {
                 if (_selectedCategory.isNotEmpty &&
                     _specificLocation.isNotEmpty &&
                     _issueDescription.isNotEmpty) {
+                  // Prepare the combined description
+                  String placeDescription =
+                      'Category: $_selectedCategory, Location: $_specificLocation, Issue: $_issueDescription';
+
                   // Prepare data to send to the backend
-                  var data = {
-                    'category': _selectedCategory,
-                    'location': _specificLocation,
-                    'issue': _issueDescription,
-                  };
+                  var data = {'placeDescription': placeDescription};
 
                   try {
-                    // Replace '<your_backend_url>' with your backend's URL
+                    // Replace '<your_machine_ip>' with your machine's IP address
                     var response = await http.post(
                       Uri.parse(
-                          'http://localhost:3000/submit_data'), // Add backend URL here
+                          'http://127.0.0.1:3000/coordinates'), // Add backend URL here
                       headers: {'Content-Type': 'application/json'},
                       body: jsonEncode(data),
                     );

@@ -124,7 +124,7 @@ class _CollegePageState extends State<CollegePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const HappeningNowPage())); // Navigate to HappeningNowPage
+                                              HappeningNowPage())); // Navigate to HappeningNowPage
                                 },
                                 strValue: "Happening Now"),
                             const SizedBox(

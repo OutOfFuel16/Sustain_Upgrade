@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // For JSON encoding/decoding
 import 'package:http/http.dart' as http; // For making HTTP requests
-import 'thank_you_submit.dart'; // Import the Thank You screen
-import 'map.dart'; // Import the map screen
+import 'happening_now.dart'; // Import the HappeningNowPage
 
 class AddDataScreen extends StatefulWidget {
   @override
@@ -15,10 +14,10 @@ class _AddDataScreenState extends State<AddDataScreen> {
   String _issueDescription = '';
 
   final List<String> categories = [
-    'Academic',
+    'Academic Block',
     'Hostel',
     'Green Area',
-    'Staff',
+    'Faculty Quarters',
     'Mess',
     'Store',
     'Canteen'
@@ -189,59 +188,45 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     var data = {'placeDescription': placeDescription};
 
                     try {
-                      // Replace '<your_machine_ip>' with your machine's IP address
                       var response = await http.post(
                         Uri.parse(
-                            'https://dpbackend-jf4z.onrender.com/coordinates'), // Add backend URL here
+                            'https://dpbackend-jf4z.onrender.com/coordinates'), // Backend URL
                         headers: {'Content-Type': 'application/json'},
                         body: jsonEncode(data),
                       );
 
                       if (response.statusCode == 201) {
-                        // Navigate to the Thank You screen on success
-                        Navigator.push(
+                        // Navigate to HappeningNowPage on success
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ThankYouScreen(
-                              onViewMapClick: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CollegeMap(),
-                                  ),
-                                );
-                              },
-                            ),
+                            builder: (context) => HappeningNowPage(),
                           ),
                         );
                       } else {
-                        // Show an error message
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Failed to submit data: ${response.body}'),
-                          ),
-                        );
+                        throw Exception('Failed to submit data');
                       }
                     } catch (error) {
-                      // Show a snackbar for network or unexpected errors
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error: $error')),
+                        SnackBar(
+                          content: Text('Error submitting data: $error'),
+                        ),
                       );
                     }
                   } else {
-                    // Prompt the user to fill in all fields
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please fill in all fields')),
+                      SnackBar(
+                        content: Text('Please fill all the fields'),
+                      ),
                     );
                   }
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  height: 50,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.green.shade600, Colors.blue.shade400],
+                      colors: [Colors.teal, Colors.blueAccent],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -249,7 +234,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      'Submit Data',
+                      'Submit',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // For decoding JSON data
-import 'add_data_screen.dart'; // Make sure to import the AddDataScreen
+import 'package:intl/intl.dart'; // For formatting dates
+import 'add_data_screen.dart'; // Ensure AddDataScreen is imported
 
 class HappeningNowPage extends StatefulWidget {
   const HappeningNowPage({super.key});
@@ -14,6 +15,17 @@ class HappeningNowPage extends StatefulWidget {
 class _HappeningNowPageState extends State<HappeningNowPage> {
   List<dynamic> updates = [];
 
+  // Create a mapping between categories and colors
+  final Map<String, Color> categoryColors = {
+    'Academic Block': const Color.fromARGB(255, 8, 48, 94)!,
+    'Hostel': const Color.fromARGB(255, 77, 167, 200)!,
+    'Green Area': Colors.teal[800]!,
+    'Faculty Quarters': Colors.purple[800]!,
+    'Mess': Colors.orange[800]!,
+    'Store': Colors.red[800]!,
+    'Canteen': Colors.yellow[800]!,
+  };
+
   // Function to fetch data from the server
   Future<void> fetchUpdates() async {
     try {
@@ -24,17 +36,15 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         // Parse the JSON data
         List<dynamic> data = json.decode(response.body);
 
-        setState(() {
-          updates = data; // Store the fetched data
+        // Sort the updates based on the createdAt date in descending order
+        data.sort((a, b) {
+          DateTime dateA = DateTime.parse(a['createdAt']);
+          DateTime dateB = DateTime.parse(b['createdAt']);
+          return dateB.compareTo(dateA); // Descending order
         });
 
-        // Auto-remove the first update after 20 seconds
-        Future.delayed(Duration(seconds: 20), () {
-          if (mounted && updates.isNotEmpty) {
-            setState(() {
-              updates.removeAt(0); // Remove the first update after 20 seconds
-            });
-          }
+        setState(() {
+          updates = data; // Store the fetched data
         });
       } else {
         throw Exception('Failed to load data');
@@ -45,6 +55,54 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         SnackBar(content: Text('Error fetching updates: $error')),
       );
     }
+  }
+
+  // Function to resolve an issue (removes it from database)
+  Future<void> resolveIssue(String id, int index) async {
+    try {
+      var response = await http.delete(
+        Uri.parse('https://dpbackend-jf4z.onrender.com/coordinates/$id'),
+      );
+
+      if (response.statusCode == 200) {
+        // Remove the item from the list if resolved successfully
+        setState(() {
+          updates.removeAt(index);
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Issue resolved successfully')),
+        );
+      } else {
+        throw Exception('Failed to resolve issue');
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error resolving issue: $error')),
+      );
+    }
+  }
+
+  // Function to parse placeDescription and extract category, location, and issue
+  Map<String, String> parsePlaceDescription(String placeDescription) {
+    // Regular expression to match Category, Location, and Issue
+    RegExp categoryRegExp = RegExp(r'Category:\s*([A-Za-z0-9\s]+)');
+    RegExp locationRegExp = RegExp(r'Location:\s*([A-Za-z0-9\s]+)');
+    RegExp issueRegExp = RegExp(r'Issue:\s*([A-Za-z0-9\s]+)');
+
+    // Extract values using regex
+    String category =
+        categoryRegExp.firstMatch(placeDescription)?.group(1) ?? 'No Category';
+    String location =
+        locationRegExp.firstMatch(placeDescription)?.group(1) ?? 'No Location';
+    String issue =
+        issueRegExp.firstMatch(placeDescription)?.group(1) ?? 'No Issue';
+
+    return {
+      'category': category,
+      'location': location,
+      'issue': issue,
+    };
   }
 
   @override
@@ -92,31 +150,37 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
                 itemCount: updates.length,
                 itemBuilder: (context, index) {
                   var update = updates[index];
-                  return Dismissible(
-                    key: Key(update['placeDescription'] ??
-                        'No Title'), // Unique key for each item
-                    onDismissed: (direction) {
-                      // Remove the item when swiped
-                      setState(() {
-                        updates.removeAt(index);
-                      });
 
-                      // Show a snackbar when item is dismissed
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Item dismissed")),
-                      );
-                    },
-                    direction:
-                        DismissDirection.endToStart, // Swipe from right to left
-                    background: Container(
-                      color: Colors.red,
-                      child: Icon(Icons.delete, color: Colors.white, size: 40),
-                    ),
-                    child: _buildUpdateCard(
-                      title: update['placeDescription'] ?? 'No Title',
-                      description: update['description'] ?? 'No Description',
-                      color: _getCardColor(index),
-                    ),
+                  // Parse the placeDescription to extract Category, Location, and Issue
+                  Map<String, String> placeData =
+                      parsePlaceDescription(update['placeDescription']);
+                  String category = placeData['category'] ?? 'No Category';
+                  String location = placeData['location'] ?? 'No Location';
+                  String issue = placeData['issue'] ?? 'No Issue';
+
+                  // Extract the date and format it
+                  String dateAdded =
+                      update['createdAt'] ?? DateTime.now().toIso8601String();
+                  DateTime createdAt = DateTime.parse(dateAdded);
+
+// Convert to IST by adding 5 hours and 30 minutes to UTC time
+                  DateTime istTime =
+                      createdAt.add(Duration(hours: 5, minutes: 30));
+
+// Format the date as needed (using intl package)
+                  String formattedDate =
+                      DateFormat('yyyy-MM-dd – kk:mm').format(istTime);
+                  // Determine the background color for this category
+                  Color categoryColor = categoryColors[category] ?? Colors.grey;
+
+                  return _buildUpdateCard(
+                    id: update['_id'] ?? 'No ID',
+                    category: category,
+                    location: location,
+                    issue: issue,
+                    dateAdded: formattedDate,
+                    color: categoryColor,
+                    index: index,
                   );
                 },
               ),
@@ -181,23 +245,15 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
     );
   }
 
-  // Method to determine a random background color for each card
-  Color _getCardColor(int index) {
-    List<Color> colors = [
-      Colors.orange[800]!,
-      Colors.red[800]!,
-      Colors.green[800]!,
-      Colors.blue[800]!,
-      Colors.purple[800]!,
-    ];
-    return colors[index % colors.length];
-  }
-
   // Method to build a single update card
   Widget _buildUpdateCard({
-    required String title,
-    required String description,
+    required String id,
+    required String category,
+    required String location,
+    required String issue,
+    required String dateAdded,
     required Color color,
+    required int index,
   }) {
     return Card(
       elevation: 5,
@@ -211,28 +267,65 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: GoogleFonts.mulish(
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            _buildHighlightedText("Category", category, fontSize: 18),
             const SizedBox(height: 8),
-            Text(
-              description,
-              style: GoogleFonts.mulish(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
+            _buildHighlightedText("Location", location, fontSize: 18),
+            const SizedBox(height: 8),
+            _buildHighlightedText("Issue", issue, fontSize: 18),
+            const SizedBox(height: 8),
+            _buildHighlightedText("Date Added", dateAdded, fontSize: 18),
+            const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: () => resolveIssue(id, index),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white, // White background
+                  foregroundColor: Colors.teal[800], // Text color
+                ),
+                child: Text(
+                  "Issue Resolved",
+                  style: GoogleFonts.mulish(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // Widget to build highlighted text with dynamic font size
+  Widget _buildHighlightedText(String label, String value,
+      {double fontSize = 16}) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "$label: ",
+            style: GoogleFonts.mulish(
+              textStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          TextSpan(
+            text: value,
+            style: GoogleFonts.mulish(
+              textStyle: TextStyle(
+                fontSize: fontSize,
+                color: Colors.white70,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -13,3 +13,8 @@ It provides real-time data on energy consumption, air quality, and carbon footpr
 Additionally, it includes automatic device control to help reduce energy waste effortlessly.
 ### Conclusion:
 Our solution is primarily software-based, with some hardware integration to ensure accurate data collection and device control. This combination allows for a holistic approach to sustainability monitoring that is both practical and effective.
+
+### Poster:
+
+<img src="https://github.com/user-attachments/assets/2ba8fc14-cb28-4377-84f6-3de0e56e1565" width="500" />
+

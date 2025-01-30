@@ -1,16 +1,15 @@
-# campus_carbon
+### I'm excited to introduce you to our sustainability monitoring app—a solution that leverages technology to make environmental awareness and action more accessible, especially in educational institutions.
 
-A new Flutter project.
+### Product Prototype:
+This app is designed to integrate real-time data from various sources to manage energy consumption and monitor air quality. It also calculates the user’s carbon footprint based on their daily activities, allowing users to make informed decisions that positively impact the environment.
 
-## Getting Started
+### Target Consumer:
+Our primary audience is college students and educational institutions. We are specifically targeting college campuses, aiming to empower students and staff to actively engage in sustainability practices and create a greener learning environment.
 
-This project is a starting point for a Flutter application.
+### Key Values:
+The app offers two main benefits:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It provides real-time data on energy consumption, air quality, and carbon footprint, making sustainability metrics easy to track.
+Additionally, it includes automatic device control to help reduce energy waste effortlessly.
+### Conclusion:
+Our solution is primarily software-based, with some hardware integration to ensure accurate data collection and device control. This combination allows for a holistic approach to sustainability monitoring that is both practical and effective.

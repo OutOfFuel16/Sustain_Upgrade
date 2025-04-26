@@ -14,8 +14,8 @@ class RepresentativesUsersPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               "Representatives Information",
               style: TextStyle(
                 color: Colors.white,
@@ -23,7 +23,7 @@ class RepresentativesUsersPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Table(
@@ -32,9 +32,9 @@ class RepresentativesUsersPage extends StatelessWidget {
                 children: [
                   TableRow(
                     decoration: BoxDecoration(color: Colors.teal[800]),
-                    children: [
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           "User Type",
                           style: TextStyle(
@@ -46,7 +46,7 @@ class RepresentativesUsersPage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           "Average Electricity Consumption",
                           style: TextStyle(
@@ -58,7 +58,7 @@ class RepresentativesUsersPage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           "Accuracy",
                           style: TextStyle(
@@ -89,26 +89,26 @@ class RepresentativesUsersPage extends StatelessWidget {
 
   TableRow _buildTableRow(String userType) {
     return TableRow(
-      decoration: BoxDecoration(color: Colors.white), // Set row background to white
+      decoration: const BoxDecoration(color: Colors.white), // Set row background to white
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             userType,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "0W",
             style: TextStyle(color: Colors.black),
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "upto __%",
             style: TextStyle(color: Colors.black),

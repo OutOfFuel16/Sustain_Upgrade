@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
               ),
               const SizedBox(width: 10), // Space between image and text
               // Display the text next to the image
-              Text(
+              const Text(
                 'SustainX', // App name
                 style: TextStyle(
                   fontSize: 50,

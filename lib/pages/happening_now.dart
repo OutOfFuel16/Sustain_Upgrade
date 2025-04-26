@@ -17,8 +17,8 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
 
   // Create a mapping between categories and colors
   final Map<String, Color> categoryColors = {
-    'Academic Block': const Color.fromARGB(255, 8, 48, 94)!,
-    'Hostel': const Color.fromARGB(255, 77, 167, 200)!,
+    'Academic Block': const Color.fromARGB(255, 8, 48, 94),
+    'Hostel': const Color.fromARGB(255, 77, 167, 200),
     'Green Area': Colors.teal[800]!,
     'Faculty Quarters': Colors.purple[800]!,
     'Mess': Colors.orange[800]!,
@@ -71,7 +71,7 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Issue resolved successfully')),
+          const SnackBar(content: Text('Issue resolved successfully')),
         );
       } else {
         throw Exception('Failed to resolve issue');
@@ -165,7 +165,7 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
 
 // Convert to IST by adding 5 hours and 30 minutes to UTC time
                   DateTime istTime =
-                      createdAt.add(Duration(hours: 5, minutes: 30));
+                      createdAt.add(const Duration(hours: 5, minutes: 30));
 
 // Format the date as needed (using intl package)
                   String formattedDate =
@@ -201,15 +201,15 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
                   },
                   style: ButtonStyle(
                     minimumSize:
-                        MaterialStateProperty.all(Size(double.infinity, 50)),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 30, vertical: 12)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        WidgetStateProperty.all(const Size(double.infinity, 50)),
+                    padding: WidgetStateProperty.all(
+                        const EdgeInsets.symmetric(horizontal: 30, vertical: 12)),
+                    shape: WidgetStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     )),
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                    elevation: MaterialStateProperty.all(5),
+                        WidgetStateProperty.all(Colors.transparent),
+                    elevation: WidgetStateProperty.all(5),
                   ),
                   child: Ink(
                     decoration: BoxDecoration(
@@ -221,13 +221,13 @@ class _HappeningNowPageState extends State<HappeningNowPage> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                           maxWidth: double.infinity, minHeight: 50),
                       alignment: Alignment.center,
                       child: Text(
                         "Report an Issue",
                         style: GoogleFonts.mulish(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,

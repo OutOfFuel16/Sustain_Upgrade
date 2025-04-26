@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             _selectedIndex = index;
           });
         },
-        children: [
+        children: const [
           TrackPage(),
           CollegePage(),
           LearnPage(),

@@ -5,8 +5,7 @@ class SwitchDetailPage extends StatelessWidget {
   final String usageTime;
 
   const SwitchDetailPage(
-      {Key? key, required this.switchName, required this.usageTime})
-      : super(key: key);
+      {super.key, required this.switchName, required this.usageTime});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class SwitchDetailPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             'Usage Time: $usageTime',
-            style: TextStyle(fontSize: 24),
+            style: const TextStyle(fontSize: 24),
           ),
         ),
       ),

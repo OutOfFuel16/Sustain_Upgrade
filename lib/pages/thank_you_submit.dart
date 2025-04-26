@@ -4,14 +4,14 @@ import "map.dart";
 class ThankYouScreen extends StatelessWidget {
   final Function onViewMapClick;
 
-  ThankYouScreen({required this.onViewMapClick});
+  const ThankYouScreen({super.key, required this.onViewMapClick});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      appBar: AppBar(title: const Text('')),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

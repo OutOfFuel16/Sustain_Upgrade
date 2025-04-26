@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'pages/splash.dart';
 import 'keys/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:campus_carbon/pages/meal_skip_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,5 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

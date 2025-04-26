@@ -7,7 +7,6 @@ import 'package:syncfusion_flutter_maps/maps.dart';
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'add_data_screen.dart';
 
 class CollegeMap extends StatefulWidget {
   const CollegeMap({super.key});

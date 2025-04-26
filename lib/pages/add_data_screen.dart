@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http; // For making HTTP requests
 import 'happening_now.dart'; // Import the HappeningNowPage
 
 class AddDataScreen extends StatefulWidget {
+  const AddDataScreen({super.key});
+
   @override
   _AddDataScreenState createState() => _AddDataScreenState();
 }
@@ -27,7 +29,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.add_location_alt, color: Colors.white),
             SizedBox(width: 8),
@@ -51,7 +53,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Title Section
-              Text(
+              const Text(
                 'Add Maintenance Data',
                 style: TextStyle(
                   fontSize: 22,
@@ -59,21 +61,21 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Please provide details about any maintenance issues such as no water, food shortages, or emergencies like fire.',
                 style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // Dropdown for selecting a category
-              Text(
+              const Text(
                 'Select Location Category:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -81,7 +83,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.2),
                       blurRadius: 6,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -91,7 +93,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     borderRadius: BorderRadius.circular(12),
                   )),
                   value: _selectedCategory.isEmpty ? null : _selectedCategory,
-                  hint: Text('Select a Location Category'),
+                  hint: const Text('Select a Location Category'),
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedCategory = newValue!;
@@ -104,7 +106,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   }).toList(),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // TextField for specific location
               Container(
@@ -115,7 +117,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.2),
                       blurRadius: 6,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -127,18 +129,18 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Enter Specific Location (e.g., Room 101)',
-                    prefixIcon: Icon(Icons.location_on),
+                    prefixIcon: const Icon(Icons.location_on),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 1.5),
+                      borderSide: const BorderSide(color: Colors.blue, width: 1.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // TextField for issue description
               Container(
@@ -149,7 +151,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.2),
                       blurRadius: 6,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -161,18 +163,18 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Enter Issue Description',
-                    prefixIcon: Icon(Icons.description),
+                    prefixIcon: const Icon(Icons.description),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 1.5),
+                      borderSide: const BorderSide(color: Colors.blue, width: 1.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Submit button with gradient
               GestureDetector(
@@ -200,7 +202,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HappeningNowPage(),
+                            builder: (context) => const HappeningNowPage(),
                           ),
                         );
                       } else {
@@ -215,7 +217,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Please fill all the fields'),
                       ),
                     );
@@ -225,14 +227,14 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [Colors.teal, Colors.blueAccent],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Submit',
                       style: TextStyle(

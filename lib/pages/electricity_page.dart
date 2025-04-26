@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'switch_detail_page.dart'; // Import the SwitchDetailPage
 
 class ElectricityPage extends StatefulWidget {
-  const ElectricityPage({Key? key}) : super(key: key);
+  const ElectricityPage({super.key});
 
   @override
   _ElectricityPageState createState() => _ElectricityPageState();
@@ -87,7 +87,7 @@ class _ElectricityPageState extends State<ElectricityPage> {
           children: [
             Text(
               switchName,
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
             Row(
               children: [
@@ -95,7 +95,7 @@ class _ElectricityPageState extends State<ElectricityPage> {
                   usageTime,
                   style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Switch(
                   value: status,
                   onChanged: (value) {
@@ -132,7 +132,7 @@ class _ElectricityPageState extends State<ElectricityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Electricity"),
+        title: const Text("Electricity"),
         backgroundColor: Colors.teal[700],
       ),
       body: Padding(

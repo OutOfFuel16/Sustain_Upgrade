@@ -4,7 +4,6 @@ import 'package:campus_carbon/models/news_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:campus_carbon/controllers/news_controller.dart';
 
 class NewsController extends GetxController {
   // for list view

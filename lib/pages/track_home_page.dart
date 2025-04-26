@@ -74,7 +74,7 @@ class _TrackPageState extends State<TrackPage> {
           backgroundColor: Colors.teal[900],
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blueGrey[300],
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ChatterPage()));
@@ -84,12 +84,12 @@ class _TrackPageState extends State<TrackPage> {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                iconTheme: IconThemeData(color: Colors.white70),
+                iconTheme: const IconThemeData(color: Colors.white70),
                 backgroundColor: Colors.transparent,
                 actions: [
                   IconButton(
                       onPressed: signOut,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.logout,
                         color: Colors.white70,
                       )),
@@ -111,7 +111,7 @@ class _TrackPageState extends State<TrackPage> {
                                     fontSize: 30,
                                     color: Colors.teal[100])),
                             child: AnimatedTextKit(
-                              pause: Duration(milliseconds: 150),
+                              pause: const Duration(milliseconds: 150),
                               repeatForever: true,
                               animatedTexts: [
                                 RotateAnimatedText('  Welcome, '),
@@ -128,7 +128,7 @@ class _TrackPageState extends State<TrackPage> {
                           textAlign: TextAlign.right,
                           " ${user.displayName ?? 'User'}",
                           style: GoogleFonts.mulish(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 25,
                           )),
@@ -143,7 +143,7 @@ class _TrackPageState extends State<TrackPage> {
                         ),
                         decoration: BoxDecoration(
                             color: Colors.grey[300],
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(18),
                                 topRight: Radius.circular(18))),
                         child: Column(
@@ -153,11 +153,11 @@ class _TrackPageState extends State<TrackPage> {
                             ),
                             Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(15),
                                 child: Text(
                                   "Real-Time Electricity Monitoring, Smart Switch Usage and Carbon footprint.",
                                   style: GoogleFonts.quicksand(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),
                                 )),
@@ -241,6 +241,50 @@ class _TrackPageState extends State<TrackPage> {
                             const SizedBox(
                               height: 20,
                             ),
+                            MyBigButton(
+                              // animationPath: 'lib/assets/water.json',
+                              startColor: Colors.blue[900],
+                              endColor: Colors.blueAccent[700],
+                              onTap: () {
+                                // TODO: Navigate to Water Consumption Page
+                              },
+                              strValue: "Water Consumption",
+                            ),
+                            const SizedBox(height: 20),
+
+                          MyBigButton(
+                              // animationPath: 'lib/assets/waste.json',
+                              startColor: Colors.deepOrange[900],
+                              endColor: Colors.orange[600],
+                              onTap: () {
+                                // TODO: Navigate to Waste Management Page
+                              },
+                              strValue: "Waste Management",
+                            ),
+                            const SizedBox(height: 20),
+
+                          MyBigButton(
+                              // animationPath: 'lib/assets/walk.json',
+                              startColor: Colors.purple[400],
+                              endColor: Colors.deepPurple[900],
+                              onTap: () {
+                                // TODO: Navigate to Walkability Page
+                              },
+                              strValue: "Walkability",
+                            ),
+                            const SizedBox(height: 20),
+
+                            MyBigButton(
+                              // animationPath: 'lib/assets/green_cover.json',
+                              startColor: Colors.green[900],
+                              endColor: Colors.lightGreen[600],
+                              onTap: () {
+                                // TODO: Navigate to Green Cover Page
+                              },
+                              strValue: "Green Cover",
+                            ),
+                            const SizedBox(height: 40),
+
                             // MyBigButton(
                             //     imagePath: 'lib/assets/images/previous.png',
                             //     startColor: Colors.blueGrey[900],

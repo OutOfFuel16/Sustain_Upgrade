@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../decorators/bigbutton.dart';
 import 'skip_meal_page.dart';
-import 'food_waste_analysis_page.dart'; // stub
+// import 'food_waste_analysis_page.dart'; // stub
 import 'mess_suggestions_page.dart';
 
 class MessWasteHomePage extends StatelessWidget {

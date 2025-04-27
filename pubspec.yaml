@@ -57,6 +57,7 @@ dependencies:
   google_generative_ai: ^0.3.2
   geolocator: ^9.0.2
   cloud_firestore: ^4.8.0
+  image_picker: ^1.1.2
 
 
   

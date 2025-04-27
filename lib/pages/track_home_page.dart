@@ -7,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_carbon/pages/user_data_display.dart';
 import 'package:campus_carbon/pages/basic_calculator.dart';
+import 'package:campus_carbon/pages/skip_meal_page.dart';
+import 'package:campus_carbon/pages/select_user_type_page.dart';
+
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -257,18 +260,23 @@ class _TrackPageState extends State<TrackPage> {
                               startColor: Colors.deepOrange[900],
                               endColor: Colors.orange[600],
                               onTap: () {
-                                // TODO: Navigate to Waste Management Page
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SkipMealPage()),
+                                );
                               },
                               strValue: "Waste Management",
                             ),
                             const SizedBox(height: 20),
 
                           MyBigButton(
-                              // animationPath: 'lib/assets/walk.json',
                               startColor: Colors.purple[400],
                               endColor: Colors.deepPurple[900],
                               onTap: () {
-                                // TODO: Navigate to Walkability Page
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const SelectUserTypePage()),
+                                );
                               },
                               strValue: "Walkability",
                             ),

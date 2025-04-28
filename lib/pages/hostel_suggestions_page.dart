@@ -1,10 +1,9 @@
 // lib/pages/hostel_suggestions_page.dart
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HostelSuggestionsPage extends StatefulWidget {
-  const HostelSuggestionsPage({Key? key}) : super(key: key);
+  const HostelSuggestionsPage({super.key});
 
   @override
   _HostelSuggestionsPageState createState() => _HostelSuggestionsPageState();
